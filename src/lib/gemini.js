@@ -12,7 +12,7 @@ import {
 } from "@google/generative-ai";
 
 //const apiKey = process.env.GEMINI_API_KEY; //website
-const API_KEY = "AIzaSyA3qy4EVh1v8k8uWX6bY9hYExz_gHlgn_o";
+const API_KEY = "";
 const MODEL_NAME = "gemini-1.5-flash";
 
 // const model = genAI.getGenerativeModel({
