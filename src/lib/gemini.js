@@ -12,17 +12,19 @@ import {
 } from "@google/generative-ai";
 
 //const apiKey = process.env.GEMINI_API_KEY; //website
-const API_KEY = "";
-const MODEL_NAME = "gemini-1.5-flash";
+// const API_KEY = "AIzaSyDOTvD5_Z6XPopFrFkiR6VLziK17-YwY5g";
+// const MODEL_NAME = "gemini-1.5-flash";
 
 // const model = genAI.getGenerativeModel({
 //   //model: "gemini-1.5-flash", //website
 
 // });
 
-async function runChat(prompt) {
-  const genAI = new GoogleGenerativeAI(API_KEY); //website
-  const model = genAI.getGenerativeModel({ model: MODEL_NAME });
+export async function runChat(prompt) {
+  const genAI = new GoogleGenerativeAI(process.env.NEXT_PUBLIC_GEMINI_API_KEY);
+  const model = genAI.getGenerativeModel({
+    model: process.env.NEXT_PUBLIC_MODEL_NAME,
+  });
 
   //const MODEL_NAME = "gemini-1.5-flash"; //vid
   // const model = genAI.getGenerativeModel({
@@ -86,4 +88,3 @@ async function runChat(prompt) {
   return response.text();
   // }
 }
-export default runChat();
