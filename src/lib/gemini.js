@@ -1,35 +1,14 @@
-/*
- * Install the Generative AI SDK
- *
- * $ npm install @google/generative-ai
- * /////yarn add @google/generative-ai
- */
-
 import {
   GoogleGenerativeAI,
   HarmCategory,
   HarmBlockThreshold,
 } from "@google/generative-ai";
 
-//const apiKey = process.env.GEMINI_API_KEY; //website
-// const API_KEY = "AIzaSyDOTvD5_Z6XPopFrFkiR6VLziK17-YwY5g";
-// const MODEL_NAME = "gemini-1.5-flash";
-
-// const model = genAI.getGenerativeModel({
-//   //model: "gemini-1.5-flash", //website
-
-// });
-
 export async function runChat(prompt) {
   const genAI = new GoogleGenerativeAI(process.env.NEXT_PUBLIC_GEMINI_API_KEY);
   const model = genAI.getGenerativeModel({
     model: process.env.NEXT_PUBLIC_MODEL_NAME,
   });
-
-  //const MODEL_NAME = "gemini-1.5-flash"; //vid
-  // const model = genAI.getGenerativeModel({
-  //   model: "gemini-1.5-flash", //website
-  // });
 
   const generationConfig = {
     temperature: 1,
@@ -64,27 +43,9 @@ export async function runChat(prompt) {
     history: [],
   });
 
-  // async function runChat(prompt) {
-  //   //const genAI = new GoogleGenerativeAI(API_KEY);
-  //   //const model = genAI.getGenerativeModel({ model: MODEL_NAME });
-
-  //   generationConfig;
-  //   safetySettings;
-  //   // history: [];
-
-  //   // const chatSession = model.startChat({
-  //   //   generationConfig,
-  //   //   // safetySettings: Adjust safety settings
-  //   //   // See https://ai.google.dev/gemini-api/docs/safety-settings
-
-  //   //   safetySettings,
-  //   //   history: [],
-  //   // });
-
-  //   //const result = await chatSession.sendMessage(prompt);
-  const result = await runChat.sendMessage(prompt);
+  const result = await chat.sendMessage(prompt);
   const response = result.response;
-  console.log(result.response.text());
+
+  console.log(response.text());
   return response.text();
-  // }
 }
