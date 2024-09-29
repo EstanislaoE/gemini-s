@@ -1,5 +1,6 @@
 "use client";
-import React, { useContext } from "react";
+
+import React, { useContext, useEffect, useRef } from "react";
 import {
   Camera,
   CircleUserRound,
@@ -20,6 +21,20 @@ const GeminiBody = () => {
     input,
     setInput,
   } = useContext(Context);
+
+  const resultRef = useRef(null);
+
+  useEffect(() => {
+    if (resultRef.current) {
+      resultRef.current.scrollTop = resultRef.current.scrollHeight;
+    }
+  }, [result]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await submit(input);
+  };
+
   return (
     <div className="flex-1 min-h-screen pb-[15vh] relative">
       <header className="flex items-center justify-between p-5 md:text-xl text-gray-400">
@@ -59,7 +74,7 @@ const GeminiBody = () => {
               />
             </div>
             <div className="h-28 p-4 bg-bgSecondaryColor rounded-xl relative cursor-pointer mb-4">
-              <p>Evaluate adn rank camera categories</p>
+              <p>Evaluate and rank camera categories</p>
               <Camera
                 size={35}
                 className="p-1 absolute bottom-2 right-2 bg-bgPrimaryColor text-softTextColor rounded-full "
@@ -72,30 +87,33 @@ const GeminiBody = () => {
               <CircleUserRound size={38} className="text-softTextColor" />
               <p>{recentPrompts}</p>
             </div>
+            <div
+              ref={resultRef}
+              className="bg-bgSecondaryColor p-4 rounded-xl max-h-[50vh] overflow-y-auto"
+            >
+              {loading ? <p>Loading...</p> : <div>{result}</div>}
+            </div>
           </div>
         )}
 
         <div className="absolute bottom-2 w-full max-w-[900px] px-5 m-auto">
-          <form action={submit}>
+          <form onSubmit={handleSubmit}>
             <div className="flex items-center justify-between gap-5 bg-bgSecondaryColor py-2.5 px-5 rounded-full border ">
               <input
                 onChange={(e) => setInput(e.target.value)}
+                value={input}
                 type="text"
-                className="flex-1 bg-transparent border-none outline-white p-2 text-md text-red-700 rounded-full"
-                placeholder="Ask the Ai bot"
+                className="flex-1 bg-transparent border-none outline-white p-2 text-md text-softTextColor rounded-full"
+                placeholder="Ask the AI bot"
               />
-              <div className="flex cursor-pointer">
-                <SendHorizonal
-                  type="submit"
-                  size={20}
-                  className="text-green-500"
-                />
-              </div>
+              <button type="submit" className="flex cursor-pointer">
+                <SendHorizonal size={20} className="text-green-500" />
+              </button>
             </div>
           </form>
-          <p className="text-gray-400 text-sm text-center">
+          <p className="text-gray-400 text-sm text-center mt-2">
             Warning: Gemini may display inaccurate information. Double-check its
-            reponses and always your common sense.
+            responses and always use your common sense.
           </p>
         </div>
       </main>
